@@ -10,14 +10,14 @@ string request_plaintext() {
 	return plainText;
 }
 
-const vector<int> generateKey(size_t textLength) {
+vector<int> generateKey(size_t textLength) {
 	int maxLength = 24;
 	if (textLength < maxLength) {
 		maxLength = textLength;
 	}
 
 	vector<int> key;
-	int keySize = rand() % maxLength + 1;
+	int keySize = rand() % maxLength + 10;
 	
 	for (int i = 0; i <= keySize; i++) {
 		int num = rand() % 26;
@@ -27,17 +27,41 @@ const vector<int> generateKey(size_t textLength) {
 	return key;
 }
 
-int schedule(int textLength, int keyLength, int currentIndex) {
 
+int scheduleKey(int i, int t) {
+	return 1 + (i % t);
 }
 
-string encrypt(const string& plaintext, const vector<int>& key) {
+vector<int> keysToEncrypt(int t, vector<int> key) {
+	vector<int> array;
+	for (int i = 1; i <= t; i++) {
+		array.push_back(key[scheduleKey(i, t)])
+	}
+	return array;
+}
 
+
+string encrypt(const string& plaintext, const vector<int>& keysToEncrypt) {
+	string enc = "";
+	int count = 0;
+	for (string letter : plaintext) {
+		int num_letter = int(letter) + keysToEncrypt[count];
+		if (num_letter > 122) {
+			num_letter -= 26;
+		}
+		enc.append(char(num_letter))
+		count += 1;
+		if (count == keysToEncrypt.size()) {
+			count = 0;
+		}
+	}
+	return enc
 }
 
 
 int main() {
-	string plainText = request_plaintext();
-	vector<int> key = generateKey(plainText.size());
-	string cipherText = encrypt(plainText, key);
+	string plain = request_plaintext();
+	vector<int> key = generateKey(plain.size());
+	vector<int> scheduled_keys = keysToEncrypt(key.size(), key);
+	string enc = encrypt(plain, scheduled_keys)
 }
