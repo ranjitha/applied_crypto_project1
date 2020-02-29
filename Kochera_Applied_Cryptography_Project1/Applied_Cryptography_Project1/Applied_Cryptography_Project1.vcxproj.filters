@@ -15,11 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Encrytion.cpp">
+    <ClCompile Include="Encryption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Decrytion.cpp">
+    <ClCompile Include="Decryption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Encryption.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
