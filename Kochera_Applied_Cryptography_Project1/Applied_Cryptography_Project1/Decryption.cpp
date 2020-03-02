@@ -4,6 +4,48 @@
 #include "Encryption.h"
 using namespace std;
 
+void longest(char str[], int length, int arr[])
+{
+	int len=0;
+	int i=1;
+	arr[0]=0;
+	while (i<length)
+	{
+		if (str[i]==str[len])
+		{
+			len++;
+			arr[i]=len;
+			i++;
+
+		}
+		else
+		{
+			if(len!=0)
+			{
+				len = arr[len-1];
+			}
+			else
+			{
+				arr[i]=0;
+				i++;
+			}
+		}
+	}
+
+}
+
+bool repeat(char str[])
+{
+	int n=strlen(str);
+	int arr[n];
+	longest(str,n,arr);
+	int len = arr[n-1];
+	if (len>0 && n%(n-len)==0)
+		return true
+	else
+		return false 
+}
+
 
 
 vector<string> get_dict() {
