@@ -101,5 +101,4 @@ if __name__ == '__main__':
         if bool is True:
             print("The correct guess is: ", dict[i])
         else:
-            print("Wrong guess: ", dict[i])
-
+            print("Wrong guess")
