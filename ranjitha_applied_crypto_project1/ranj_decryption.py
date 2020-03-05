@@ -28,6 +28,7 @@ def isRepeat(string):
     else:
         return False
 
+
 # checks if key is valid depending on repititions
 def check_key_validity(key):
     #done = False
