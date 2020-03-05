@@ -26,26 +26,28 @@ def isRepeat(string):
     if length > 0 and n%(n-length) == 0:
         return True
     else:
-        False
+        return False
 
 # checks if key is valid depending on repititions
 def check_key_validity(key):
-    done = False
+    #done = False
     n = len(key)
-    for i in range(1,25):
+    for i in range(min(24, n)): #minimum of 24 or length
         if isRepeat(key[:n-i]):
             #print(key[:n-i])
-            return key[:n-i]
-    return None
+            #sneed to fix
+            return isRepeat(key[:n-i])
+    return False
 #print(check_key_validity("ae gmae gmae gmae"))
 
 
 # gives indicies from the alphabet for all the letters in the input string passed as arg
+# for example, given "abc apple", it returns [1,2,3,0,1,16,16,12]
 def get_number_for_letters(text):
     letters = " abcdefghijklmnopqrstuvwxyz"
     number_array_for_text = []
     
-    for i in range(0, len(text)):
+    for i in range(len(text)):
         done = False
         j = 0
         while not done:
@@ -67,17 +69,10 @@ def compare_cipher_with_plaintext(ciphertext, plaintext):
     plaintext_array = get_number_for_letters(plaintext)
     
     for i in range(len(ciphertext_array)):
-        if plaintext_array[i] > ciphertext_array[i]:
-            n = 26 - plaintext_array[i]
-            m = ciphertext_array[i]
-            shift = n+m+1
-        else:
-            shift = ciphertext_array[i] - plaintext_array[i]
+        shift = (ciphertext_array[i] - plaintext_array[i]) % 27
         key_shifts.append(shift)
     
-    key = []
-    for shift in key_shifts:
-        key.append(letters[shift])
+    key = [letters[shift] for shift in key_shifts]
 
     return ("".join(key))
 #compare_cipher_with_plaintext("jeatmwjremtyrletjd", "i am very stressed")
@@ -85,9 +80,7 @@ def compare_cipher_with_plaintext(ciphertext, plaintext):
 
 def guess(ciphertext, plaintext):
     key = compare_cipher_with_plaintext(ciphertext, plaintext)
-    bool = check_key_validity(key)
-    if bool == True:
-        return bool
+    return check_key_validity(key)
 
 
 if __name__ == '__main__':
@@ -107,4 +100,6 @@ if __name__ == '__main__':
         #print(bool)
         if bool is True:
             print("The correct guess is: ", dict[i])
+        else:
+            print("Wrong guess: ", dict[i])
 
