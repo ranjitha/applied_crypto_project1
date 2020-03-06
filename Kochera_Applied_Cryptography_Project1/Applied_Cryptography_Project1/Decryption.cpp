@@ -37,7 +37,7 @@ void longest(string str, int length, int arr[])
 
 bool repeat(string str)
 {
-	int n=str.size();
+	int n=str.size()
 	int arr[n];
 	longest(str,n,arr);
 	int len = arr[n-1];
