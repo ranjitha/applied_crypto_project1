@@ -31,12 +31,9 @@ def isRepeat(string):
 
 # checks if key is valid depending on repititions
 def check_key_validity(key):
-    #done = False
     n = len(key)
     for i in range(min(24, n)): #minimum of 24 or length
         if isRepeat(key[:n-i]):
-            #print(key[:n-i])
-            #sneed to fix
             return isRepeat(key[:n-i])
     return False
 #print(check_key_validity("ae gmae gmae gmae"))
@@ -85,10 +82,6 @@ def guess(ciphertext, plaintext):
 
 
 if __name__ == '__main__':
-    #five_plaintext_file = open("plaintext_dictionary_test1.txt", "r")
-    #word_dictionary_file = open("word_dictionary_test2.txt", "r")
-    #five_plaintext_file_content = five_plaintext_file.read()
-    #word_dictionary_file_content = word_dictionary_file.read()
     dict = {
     0: "gunfights outjuts molters forgot bedclothes cirrus servomotors tumulus incompleteness provoking sixteens breezeways layoff marinas directives teabowl vugs mainframe gazebo bushwhacks testers incompressibility unthoughtfully rivalled repaint nonuple guerre semiaquatic flashgun esthetics icefall touchups baltic baba gorget groper remittances nimbus podium reassurance preventable overroasts chests interchangeable pentarch doctoring potentiated salts overlay rustled recyclability version mottled lee",
     1: "intersectional marquees undeniably curates papa invidiousness libidinal congratulate annexion stompers oxblood relicense incept viny dimers typicality meteors indebtedness triceratops statisms arsenides horsed melanin smelt ulsters films townfolk orchestrations disintoxication ceiled allegories pinsetters misdeliveries firebreak baronages sphere stalest amino linkboy plasm avers cocktail reconfirming rearoused paternity moderation pontificated justices overplays borzois trailblazers smelters cor",
@@ -98,7 +91,6 @@ if __name__ == '__main__':
     cipher_input = input("Please input ciphertext to be decrypted: ")
     for i in range(5):
         bool = guess(cipher_input, dict[i])
-        #print(bool)
         if bool is True:
             print("The correct guess is: ", dict[i])
         else:

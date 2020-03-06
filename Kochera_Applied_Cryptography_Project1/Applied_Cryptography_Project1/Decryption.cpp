@@ -1,9 +1,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <valarray>
+#include <cstring>
 using namespace std;
 
-void longest(char str[], int length, int arr[])
+void longest(string str, int length, int arr[])
 {
 	int len=0;
 	int i=1;
@@ -33,9 +35,9 @@ void longest(char str[], int length, int arr[])
 
 }
 
-bool repeat(char str[])
+bool repeat(string str)
 {
-	int n=strlen(str);
+	int n=str.size();
 	int arr[n];
 	longest(str,n,arr);
 	int len = arr[n-1];
@@ -45,10 +47,11 @@ bool repeat(char str[])
 		return false; 
 }
 
-'''checks if key is valid depending on repetitions'''
-bool check_key_validity(vector <int> key) {
+//checks if key is valid depending on repetitions
+bool check_key_validity(string key) {
 	int n = key.size();
-	for(int i=0;i<min(24,n);i++){ '''minimum of 24 or length'''
+    //vector <char> k2;
+    for(int i=0;i<min(24,n);i++){ //minimum of 24 or length
 		if(repeat(key[:n-i])) {
 			return repeat(key[:n-i]);
 		}
@@ -56,7 +59,7 @@ bool check_key_validity(vector <int> key) {
 	return false;
 }
 
-'''gives indicies from the alphabet for all the letters in the input string passed as arg'''
+//gives indicies from the alphabet for all the letters in the input string passed as arg
 vector <int> get_number_for_letters(string text) {
 	string letters = " abcdefghijklmnopqrstuvwxyz";
 	vector <int> number_array_for_text;
@@ -79,10 +82,12 @@ vector <int> get_number_for_letters(string text) {
 string compare_cipher_with_plaintext(string ciphertext, string plaintext) {
 	string letters = " abcdefghijklmnopqrstuvwxyz";
 	vector <int> key_shifts;
-	int cipherarr[ciphertext.size()];
-	int plainarr[plaintext.size()];
+    int cipher_arr_size = ciphertext.size();
+	int cipherarr[cipher_arr_size];
+    int plaintext_arr_size = plaintext.size();
+	int plainarr[plaintext_arr_size];
 	string empty="";
-	for(int i=0; i<cipherarr.size();i++) {
+	for(int i=0; i<cipher_arr_size; i++) {
 		int shift = (cipherarr[i]-plainarr[i])%27;
 		key_shifts.push_back(shift);
 	}
@@ -98,7 +103,7 @@ string compare_cipher_with_plaintext(string ciphertext, string plaintext) {
 }
 
 bool guess(string ciphertext, string plaintext) {
-	vector <char> key = compare_cipher_with_plaintext(ciphertext, plaintext);
+	string key = compare_cipher_with_plaintext(ciphertext, plaintext);
 	return check_key_validity(key);
 }
 
