@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Encryption.h"
 using namespace std;
 
 void longest(char str[], int length, int arr[])
