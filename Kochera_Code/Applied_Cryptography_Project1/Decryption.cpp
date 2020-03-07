@@ -7,99 +7,109 @@
 #include "Encryption.h"
 using namespace std;
 
-void longest(string str, int length, vector<int> arr)
+void longest(string& str, int M, vector<int>& lps)
 {
-	int len = 0;
+	int length = 0;
 	int i = 1;
-	arr[0] = 0;
-	while (i < length)
+	lps[0] = 0;
+	while (i < M)
 	{
-		if (str[i] == str[len])
+		if (str[i] == str[length])
 		{
-			len++;
-			arr[i] = len;
+			length++;
+			lps[i] = length;
 			i++;
 
 		}
 		else
 		{
-			if (len != 0)
+			if (length != 0)
 			{
-				len = arr[len - 1];
+				length = lps[length - 1];
 			}
 			else
 			{
-				arr[i] = 0;
+				lps[i] = 0;
 				i++;
 			}
 		}
 	}
 }
 
-bool repeat(string str)
+bool repeat(string& str)
 {
 	int n = str.size();
-	vector<int> arr(n);
+	vector<int> arr;
+	for (int i = 0; i < n; i++) {
+		arr.push_back(0);
+	}
 	longest(str, n, arr);
 	int len = arr[n - 1];
-	if (len > 0 && n % (n - len) == 0)
+	if (len > 0 && (n % (n - len) == 0)) {
 		return true;
-	else
+	}
+	else {
 		return false;
+	}
 }
 
 //checks if key is valid depending on repetitions
-bool check_key_validity(string key) {
+bool check_key_validity(string& key) {
 	int n = key.size();
-	//vector <char> k2;
 	for (int i = 0;i < min(24, n);i++) { //minimum of 24 or length
-		if (repeat(key.substr(n - i))) {
-			return repeat(key.substr(n - i, n));
+		string sub = key.substr(0, n - i);
+		if (repeat(sub)) {
+			return repeat(sub);
 		}
 	}
 	return false;
 }
 
 //gives indicies from the alphabet for all the letters in the input string passed as arg
-vector <int> get_number_for_letters(string text) {
+vector<int> get_number_for_letters(string& text) {
 	string letters = " abcdefghijklmnopqrstuvwxyz";
-	vector <int> number_array_for_text;
+	vector<int> number_array_for_text;
+
 	for (int i = 0;i < text.size();i++) {
 		bool done = false;
 		int j = 0;
 		while (done != true) {
-			if (text[i] == letters[i]) {
+			if (text[i] == letters[j]) {
 				number_array_for_text.push_back(j);
 				done = true;
 			}
 			else j++;
-
 		}
 	}
 	return number_array_for_text;
 }
 
+int mod(int a, int b) { return (a % b + b) % b; }
 
-string compare_cipher_with_plaintext(string ciphertext, string plaintext) {
+string compare_cipher_with_plaintext(string& ciphertext, string& plaintext) {
 	string letters = " abcdefghijklmnopqrstuvwxyz";
 	vector <int> key_shifts;
-	int cipher_arr_size = ciphertext.size();
-	vector<int> cipherarr(cipher_arr_size);
-	int plaintext_arr_size = plaintext.size();
-	vector<int> plainarr(plaintext_arr_size);
+
+	vector<int> cipherarr = get_number_for_letters(ciphertext);
+	vector<int> plainarr = get_number_for_letters(plaintext);
+
 	string empty = "";
-	for (int i = 0; i < cipher_arr_size; i++) {
-		int shift = (cipherarr[i] - plainarr[i]) % 27;
+
+	for (int i = 0; i < cipherarr.size(); i++) {
+		int shift = mod((cipherarr[i] - plainarr[i]), 27);
 		key_shifts.push_back(shift);
 	}
+
 	vector <char> key;
-	for (int j = 0;j < key_shifts.size();j++) {
-		int k = key_shifts[j];
-		key.push_back(letters[k]);
+	
+	for (int shift : key_shifts) {
+		key.push_back(letters[shift]);
 	}
-	for (int l = 0;l < key.size();l++) {
-		empty += key[l];
+
+	for (char charac : key) {
+		empty += charac;
 	}
+
 	return empty;
 }
 
@@ -121,21 +131,90 @@ vector<string> get_dict() {
 int main() {
 	//Filled vector with different string candidates from dict 1
 	vector<string> candidates = get_dict();
-	string cipher_input;
-	cout << "Please input ciphertext to be decrypted: ";
-	cin >> cipher_input;
-	for (int i = 0;i < 5;i++) {
-		bool ans = guess(cipher_input, candidates[i]);
-		if (ans == true) {
-			cout << "The correct guess is: ";
-			cout << candidates[i];
-		}
-		else
-			cout << "Wrong Guess";
-	}
-	//string ciphered = get_cipherText();
-	//int guess = decrypt(ciphered, candidates);
+	vector<vector<int>> keys = GenerateKeyRange();
+	vector<vector<int>> AllCombos;
 
+	for (vector<int> key : keys) {
+		for (int i = 0; i < key.size(); i++) {
+			for (int j = 0; j < key.size(); j++) {
+				AllCombos.push_back(keysToEncrypt(key.size(), key, i, j));
+			}
+		}
+	}
+
+	vector<string> ciphersOne;
+	vector<string> ciphersTwo;
+	vector<string> ciphersThree;
+	vector<string> ciphersFour;
+	vector<string> ciphersFive;
+	
+	for (vector<int> key : AllCombos) {
+		string cipher1 = get_cipherTextTest(candidates[0], key);
+		ciphersOne.push_back(cipher1);
+		string cipher2 = get_cipherTextTest(candidates[1], key);
+		ciphersTwo.push_back(cipher2);
+		string cipher3 = get_cipherTextTest(candidates[2], key);
+		ciphersThree.push_back(cipher3);
+		string cipher4 = get_cipherTextTest(candidates[3], key);
+		ciphersFour.push_back(cipher4);
+		string cipher5 = get_cipherTextTest(candidates[4], key);
+		ciphersFive.push_back(cipher5);
+	}
+	
+	for (string cipher : ciphersOne) {
+		for (int i = 0;i < 5;i++) {
+			bool ans = guess(cipher, candidates[i]);
+			if (ans == true) {
+				cout << "The correct guess is: " << endl;
+				cout << candidates[i];
+				break;
+			}
+			else {
+				cout << "Wrong Guess";
+			}
+		}
+	}
+		/*
+		for (string candidate : candidates) {
+			for (vector<int> key : AllCombos) {
+				string cipher_input = get_cipherTextTest(candidate, key);
+				//cipherTextList.push_back(cipher);
+				for (int i = 0;i < 5;i++) {
+					bool ans = guess(cipher_input, candidates[i]);
+					if (ans == true) {
+						cout << "The correct guess is: " << endl;
+						cout << candidates[i];
+						break;
+					}
+					else {
+						cout << "Wrong Guess";
+					}
+				}
+			}
+			cout << "00000000000000000000000000000000000000000000000000000000000000000000000000000000000" << endl;
+		}
+		*/
+
+
+		/*
+		string cipher_input = get_cipherTextTest(candidates[0], AllCombos[500]);
+		//cout << cipher_input << endl;
+		//cout << "Please input ciphertext to be decrypted: ";
+		//getline(cin, cipher_input);
+		for (int i = 0;i < 5;i++) {
+			bool ans = guess(cipher_input, candidates[i]);
+			if (ans == true) {
+				cout << "The correct guess is: " << endl;
+				cout << candidates[i];
+				break;
+			}
+			else
+				cout << "Wrong Guess";
+		}
+
+		//string ciphered = get_cipherText();
+		//int guess = decrypt(ciphered, candidates);
+		*/
 }
 
 
