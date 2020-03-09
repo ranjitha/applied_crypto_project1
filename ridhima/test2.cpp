@@ -3,8 +3,9 @@
 #include <string>
 #include <vector>
 #include <map> 
+using namespace std;
 
-map <string,vector<int>> findRepeatSequence(string message) {
+map <string,vector<int>> findRepeatSequences(string message) {
 	// remove non letters and spaces from the message?
 	map <string, vector <int> > seqSpace; //keys are sequences, values are list of spaces between them 
 	map <string,vector<int>>::iterator it;
@@ -18,7 +19,7 @@ map <string,vector<int>> findRepeatSequence(string message) {
 					if(it==seqSpace.end()) {
 						seqSpace.insert({sequence,[]});
 					}
-				seqSpace[sequence].push_back(i-start);
+				seqSpace[sequence].push_back(i-start); //append the space gap between original seq and repeated seq
 				}
 			}
 		}
@@ -26,7 +27,7 @@ map <string,vector<int>> findRepeatSequence(string message) {
 	return seqSpace;
 }
 
-vector <int> getFactors(int num) {
+vector <int> getUsefulFactors(int num) {
 	//returns a list of factors of a number. each factor should be at max 24
 	vector <int> factors;
 	if num<2 return factors;
@@ -36,12 +37,29 @@ vector <int> getFactors(int num) {
 			factors.push_back(int(num/i));
 		}
 	}
+
+	sort(factors.begin(), factors.end());
+	unique(factors.begin(),factors.end()); //unique factors only to avoid repeats
 	return factors;
 }
 
-vector <int> frequentfactors()
+vector <int> MostCommonfactors(map <string,vector<int>> seqfactors) {
+
+}
 
 void kasiski(string ciphertext){
-	repeatSpacings = findRepeatSequence(ciphertext); 
+	repeatSpacings = findRepeatSequences(ciphertext); 
+	map <string,vector<int>> seqfactors; //factors of each number in the sequences list
+	map <string, vector<int>> iterator it = repeatSpacings.begin();
+	vector <int> listFactors;
+	vector <int> mostfrequent;
+	while(it!=repeatSpacings.end()) {
+		for(int j=0;j< it->second.size();j++) {
+			listFactors = getUsefulFactors(it->second[j]);
+			seqfactors[it->first]=listFactors;
+		}
+		it++;
+	}
+	mostfrequent = MostCommonfactors(seqfactors);
 
 }
