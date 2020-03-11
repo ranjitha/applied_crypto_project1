@@ -128,7 +128,38 @@ vector<string> get_dict() {
 	return candidates;
 }
 
+
+bool sortbysec(const tuple<int, int>& a,
+	const tuple<int, int>& b)
+{
+	return (get<1>(a) > get<1>(b));
+}
+
+int makeList() {
+	vector<tuple<int, int> > v;
+	v.push_back(make_tuple(10, 5));
+	v.push_back(make_tuple(15, 20));
+	v.push_back(make_tuple(3, 2));
+
+	// Using sort() function to sort by 2nd element 
+	// of tuple 
+	sort(v.begin(), v.end(), sortbysec);
+	cout << "Sorted Vector of Tuple on basis"
+		" of Second element of tuple:\n";
+
+	for (int i = 0; i < v.size(); i++)
+		cout << get<0>(v[i]) << " "
+		<< get<1>(v[i]) << " "
+		<< "\n";
+	return 0;
+}
+
+
+
+
+
 int main() {
+	makeList();
 	//Filled vector with different string candidates from dict 1
 	vector<string> candidates = get_dict();
 	vector<vector<int>> keys = GenerateKeyRange();
