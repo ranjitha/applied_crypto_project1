@@ -4,6 +4,7 @@
 #include <cstring>
 #include <valarray>
 #include <algorithm>
+#include <fstream>
 #include "Encryption.h"
 using namespace std;
 
@@ -171,6 +172,27 @@ int makeList() {
 
 
 int main() {
+	
+	vector<string> dict2words = getDict2();
+	string text = randomText(dict2words);
+	vector<string> tests;
+	cout << text;
+	for (int i = 0; i < 1000; i++) {
+		string rando = randomText(dict2words);
+		bool found = (std::find(tests.begin(), tests.end(), rando) != tests.end());
+		if (!found) {
+			tests.push_back(rando);
+		}
+	}
+
+	ofstream file;
+	file.open("tests.txt", 'w');
+
+	for (string text : tests) {
+		file << text << endl;
+	}
+
+	/*
 	makeList();
 	//Filled vector with different string candidates from dict 1
 	vector<string> candidates = get_dict();
@@ -217,6 +239,7 @@ int main() {
 			}
 		}
 	}
+	*/
 		/*
 		for (string candidate : candidates) {
 			for (vector<int> key : AllCombos) {
