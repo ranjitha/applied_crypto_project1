@@ -1,8 +1,16 @@
 import itertools, re
 #import vigenereCipher
-import pyperclip
+#import pyperclip
 #import freqAnalysis
 #import detectEnglish
+
+englishLetterFreq = {'e': 12.70, 't': 9.06, 'a': 8.17, 'o': 7.51, 'i': 6.97, 'n': 6.75, 's': 6.33, 'h': 6.09, 'r': 5.99, 'd': 4.25, 'l': 4.03, 'c': 2.78, 'u': 2.76, 'm': 2.41, 'w': 2.36, 'f': 2.23, 'g': 2.02, 'y': 1.97, 'p': 1.93, 'b': 1.29, 'v': 0.98, 'k': 0.77, 'j': 0.15, 'x': 0.15, 'q': 0.10, 'z': 0.07}
+ETAOIN = 'etaoinshrdlcumwfgybvkjxqz'
+LETTERS = ' abcdefghijklmnopqrstuvwxyz'
+SILENT_MODE = False # if set to True, program doesn't print attempts
+NUM_MOST_FREQ_LETTERS = 24 # attempts th# is many letters per subkey
+MAX_KEY_LENGTH = 30 # will not attempt keys longer than this
+#NONLETTERS_PATTERN = re.compile('[^a-z]')
 
 def decryptMessage(key, message):
     return translateMessage(key, message, 'decrypt')
@@ -10,13 +18,24 @@ def decryptMessage(key, message):
 
 def translateMessage(key, message, mode):
     translated = [] # stores the encrypted/decrypted message string
+    offsets = as_list(key)
+    #keyIndex = 0
+    #key = key.lower()
 
-    keyIndex = 0
-    key = key.lower()
-
-    for symbol in message: # loop through each character in message
-        num = LETTERS.find(symbol.lower())
-        if num != -1: # -1 means symbol.upper() was not found in LETTERS
+    for i in range(len(message)): # loop through each character in message
+        symbol = message[i]
+        indx = LETTERS.index(symbol)
+        if mode == 'encrypt':
+            new_index = (indx + offsets[i % len(offsets)]) % len(LETTERS)
+        else:
+            new_index = (indx - offsets[i % len(offsets)]) % len(LETTERS)
+        translated.append(LETTERS[new_index])
+    return "".join(translated)
+            # offsets = [2, 9, 5]
+            # ptxt =     a  b  c  g  a
+            # ctxt =     c  k  h  i  j
+'''
+        if num != -1: # -1 means symbol.lower() was not found in LETTERS
             if mode == 'encrypt':
                 num += LETTERS.find(key[keyIndex]) # add if encrypting
             elif mode == 'decrypt':
@@ -38,16 +57,12 @@ def translateMessage(key, message, mode):
             translated.append(symbol)
 
     return ''.join(translated)
-
-
-englishLetterFreq = {'e': 12.70, 't': 9.06, 'a': 8.17, 'o': 7.51, 'i': 6.97, 'n': 6.75, 's': 6.33, 'h': 6.09, 'r': 5.99, 'd': 4.25, 'l': 4.03, 'c': 2.78, 'u': 2.76, 'm': 2.41, 'w': 2.36, 'f': 2.23, 'g': 2.02, 'y': 1.97, 'p': 1.93, 'b': 1.29, 'v': 0.98, 'k': 0.77, 'j': 0.15, 'x': 0.15, 'q': 0.10, 'z': 0.07}
-ETAOIN = 'etaoinshrdlcumwfgybvkjxqz'
-LETTERS = 'abcdefghijklmnopqrstuvwxyz'
+'''
 
 def getLetterCount(message):
     # Returns a dictionary with keys of single letters and values of the
     # count of how many times they appear in the message parameter.
-    letterCount = {'a': 0, 'b': 0, 'c': 0, 'd': 0, 'e': 0, 'f': 0, 'g': 0, 'h': 0, 'i': 0, 'j': 0, 'k': 0, 'l': 0, 'm': 0, 'n': 0, 'o': 0, 'p': 0, 'q': 0, 'r': 0, 's': 0, 't': 0, 'u': 0, 'v': 0, 'w': 0, 'x': 0, 'y': 0, 'z': 0}
+    letterCount = {'a': 0, 'b': 0, 'c': 0, 'd': 0, 'e': 0, 'f': 0, 'g': 0, 'h': 0, 'i': 0, 'j': 0, 'k': 0, 'l': 0, 'm': 0, 'n': 0, 'o': 0, 'p': 0, 'q': 0, 'r': 0, 's': 0, 't': 0, 'u': 0, 'v': 0, 'w': 0, 'x': 0, 'y': 0, 'z': 0, ' ':0}
 
     for letter in message.lower():
         if letter in LETTERS:
@@ -117,10 +132,6 @@ def englishFreqMatchScore(message):
     return matchScore
 
 
-SILENT_MODE = True # if set to True, program doesn't print attempts
-NUM_MOST_FREQ_LETTERS = 24 # attempts th# is many letters per subkey
-MAX_KEY_LENGTH = 30 # will not attempt keys longer than this
-NONLETTERS_PATTERN = re.compile('[^a-z]')
 
 def main():
     ciphertext = input("Enter CipherText Here: ")
@@ -138,7 +149,7 @@ def findRepeatSequencesSpacings(message):
     # that are repeated. Returns a dict with the keys of the sequence and
     # values of a list of spacings (num of letters between the repeats).
     # Use a regular expression to remove non-letters from the message.
-    message = NONLETTERS_PATTERN.sub('', message.lower())
+    #message = NONLETTERS_PATTERN.sub('', message.lower())
 
     # Compile a list of seqLen-letter sequences found in the message.
     seqSpacings = {}  # keys are sequences, values are list of int spacings
@@ -241,7 +252,7 @@ def getNthSubkeysLetters(n, keyLength, message):
      #      getNthSubkeysLetters(1, 5, 'ABCDEFGHI') returns 'AF'
 
      # Use a regular expression to remove non-letters from the message.
-     message = NONLETTERS_PATTERN.sub('', message)
+     #message = NONLETTERS_PATTERN.sub('', message)
      i = n - 1
      letters = []
      while i < len(message):
@@ -251,7 +262,8 @@ def getNthSubkeysLetters(n, keyLength, message):
      return ''.join(letters)
 
 
-
+def as_list(key):
+     return [LETTERS.index(letter) for letter in key]
 
 
 def attemptHackWithKeyLength(ciphertext, mostLikelyKeyLength):
@@ -278,7 +290,7 @@ def attemptHackWithKeyLength(ciphertext, mostLikelyKeyLength):
      if not SILENT_MODE:
          for i in range(len(allFreqScores)):
              # use i + 1 so the first letter is not called the "0th" letter
-             print('Possible letters for letter %s of the key: ' % (i + 1), end='')
+             print('Possible letters for letter %s of the key: ' %(i + 1), end='')
              for freqScore in allFreqScores[i]:
                  print('%s ' % freqScore[0], end='')
              print() # print a newline
@@ -291,15 +303,17 @@ def attemptHackWithKeyLength(ciphertext, mostLikelyKeyLength):
          for i in range(mostLikelyKeyLength):
              possibleKey += allFreqScores[i][indexes[i]][0]
          if not SILENT_MODE:
-             print('Attempting with key: %s' % (possibleKey))
+             print('Attempting with key: "%s"' % as_list(possibleKey))
 
          decryptedText = decryptMessage(possibleKey, ciphertext)
+         print(len(decryptedText), len(ciphertext))
          # Set the hacked ciphertext to the original casing.
          origCase = []
          for i in range(len(ciphertext)):
              if ciphertext[i].isupper():
                  origCase.append(decryptedText[i].upper())
              else:
+                 #print(i, len(decryptedText), len(ciphertext), possibleKey, decryptedText)
                  origCase.append(decryptedText[i].lower())
          decryptedText = ''.join(origCase)
 
