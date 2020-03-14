@@ -7,10 +7,10 @@ import itertools, re
 englishLetterFreq = {'e': 12.70, 't': 9.06, 'a': 8.17, 'o': 7.51, 'i': 6.97, 'n': 6.75, 's': 6.33, 'h': 6.09, 'r': 5.99, 'd': 4.25, 'l': 4.03, 'c': 2.78, 'u': 2.76, 'm': 2.41, 'w': 2.36, 'f': 2.23, 'g': 2.02, 'y': 1.97, 'p': 1.93, 'b': 1.29, 'v': 0.98, 'k': 0.77, 'j': 0.15, 'x': 0.15, 'q': 0.10, 'z': 0.07}
 ETAOIN = 'etaoinshrdlcumwfgybvkjxqz'
 LETTERS = ' abcdefghijklmnopqrstuvwxyz'
-SILENT_MODE = False # if set to True, program doesn't print attempts
 NUM_MOST_FREQ_LETTERS = 24 # attempts th# is many letters per subkey
 MAX_KEY_LENGTH = 30 # will not attempt keys longer than this
-#NONLETTERS_PATTERN = re.compile('[^a-z]')
+DICTIONARY2 = ['awesomeness', 'hearkened', 'aloneness', 'beheld', 'courtship', 'swoops', 'memphis', 'attentional', 'pintsized', 'rustics', 'hermeneutics', 'dismissive', 'delimiting', 'proposes', 'between', 'postilion', 'repress', 'racecourse', 'matures', 'directions', 'pressed', 'miserabilia', 'indelicacy', 'faultlessly', 'chuted', 'shorelines', 'irony', 'intuitiveness', 'cadgy', 'ferries', 'catcher', 'wobbly', 'protruded', 'combusting', 'unconvertible', 'successors', 'footfalls', 'bursary', 'myrtle', 'photocompose', ' ', '']
+
 
 def decryptMessage(key, message):
     return translateMessage(key, message, 'decrypt')
@@ -19,8 +19,6 @@ def decryptMessage(key, message):
 def translateMessage(key, message, mode):
     translated = [] # stores the encrypted/decrypted message string
     offsets = as_list(key)
-    #keyIndex = 0
-    #key = key.lower()
 
     for i in range(len(message)): # loop through each character in message
         symbol = message[i]
@@ -34,40 +32,15 @@ def translateMessage(key, message, mode):
             # offsets = [2, 9, 5]
             # ptxt =     a  b  c  g  a
             # ctxt =     c  k  h  i  j
-'''
-        if num != -1: # -1 means symbol.lower() was not found in LETTERS
-            if mode == 'encrypt':
-                num += LETTERS.find(key[keyIndex]) # add if encrypting
-            elif mode == 'decrypt':
-                num -= LETTERS.find(key[keyIndex]) # subtract if decrypting
 
-            num %= len(LETTERS) # handle the potential wrap-around
-
-            # add the encrypted/decrypted symbol to the end of translated.
-            if symbol.isupper():
-                translated.append(LETTERS[num].lower())
-            elif symbol.islower():
-                translated.append(LETTERS[num])
-
-            keyIndex += 1 # move to the next letter in the key
-            if keyIndex == len(key):
-                keyIndex = 0
-        else:
-            # The symbol was not in LETTERS, so add it to translated as is.
-            translated.append(symbol)
-
-    return ''.join(translated)
-'''
 
 def getLetterCount(message):
     # Returns a dictionary with keys of single letters and values of the
     # count of how many times they appear in the message parameter.
     letterCount = {'a': 0, 'b': 0, 'c': 0, 'd': 0, 'e': 0, 'f': 0, 'g': 0, 'h': 0, 'i': 0, 'j': 0, 'k': 0, 'l': 0, 'm': 0, 'n': 0, 'o': 0, 'p': 0, 'q': 0, 'r': 0, 's': 0, 't': 0, 'u': 0, 'v': 0, 'w': 0, 'x': 0, 'y': 0, 'z': 0, ' ':0}
-
     for letter in message.lower():
         if letter in LETTERS:
             letterCount[letter] += 1
-
     return letterCount
 
 
@@ -137,9 +110,7 @@ def main():
     ciphertext = input("Enter CipherText Here: ")
     hackedMessage = hackVigenere(ciphertext)
     if hackedMessage != None:
-        #print('Copying hacked message to clipboard:')
-        print(hackedMessage)
-        #pyperclip.copy(hackedMessage)
+        print("This is the decrypted message: \n", hackedMessage)
     else:
         print('Failed to hack encryption.')
 
@@ -242,8 +213,6 @@ def kasiskiExamination(ciphertext):
 
 
 
-
-
 def getNthSubkeysLetters(n, keyLength, message):
      # Returns every Nth letter for each keyLength set of letters in text.
      # E.g. getNthSubkeysLetters(1, 3, 'ABCABCABC') returns 'AAA'
@@ -287,13 +256,6 @@ def attemptHackWithKeyLength(ciphertext, mostLikelyKeyLength):
          freqScores.sort(key=getItemAtIndexOne, reverse=True)
          allFreqScores.append(freqScores[:NUM_MOST_FREQ_LETTERS])
 
-     if not SILENT_MODE:
-         for i in range(len(allFreqScores)):
-             # use i + 1 so the first letter is not called the "0th" letter
-             print('Possible letters for letter %s of the key: ' %(i + 1), end='')
-             for freqScore in allFreqScores[i]:
-                 print('%s ' % freqScore[0], end='')
-             print() # print a newline
 
      # Try every combination of the most likely letters for each position
      # in the key.
@@ -302,37 +264,20 @@ def attemptHackWithKeyLength(ciphertext, mostLikelyKeyLength):
          possibleKey = ''
          for i in range(mostLikelyKeyLength):
              possibleKey += allFreqScores[i][indexes[i]][0]
-         if not SILENT_MODE:
-             print('Attempting with key: "%s"' % as_list(possibleKey))
 
          decryptedText = decryptMessage(possibleKey, ciphertext)
-         print(len(decryptedText), len(ciphertext))
+         #print(len(decryptedText), len(ciphertext))
          # Set the hacked ciphertext to the original casing.
          origCase = []
          for i in range(len(ciphertext)):
-             if ciphertext[i].isupper():
-                 origCase.append(decryptedText[i].upper())
-             else:
-                 #print(i, len(decryptedText), len(ciphertext), possibleKey, decryptedText)
-                 origCase.append(decryptedText[i].lower())
+             origCase.append(decryptedText[i].lower())
+         
          decryptedText = ''.join(origCase)
-
-         # Check with user to see if the key has been found.
-         print('Possible encryption hack with key %s:' % (possibleKey))
-         print(decryptedText[:200]) # only show first 200 characters
-         print()
-         print('Enter D for done, or just press Enter to continue hacking:')
-         response = input('> ')
-
-
-
-         if response.strip().upper().startswith('D'):
+         
+         list_of_words = decryptedText.split(" ")
+         if set(list_of_words) <= set(DICTIONARY2):
              return decryptedText
-
-     # No English-looking decryption found, so return None.
      return None
-
-
 
 
 
@@ -340,34 +285,22 @@ def hackVigenere(ciphertext):
      # First, we need to do Kasiski Examination to figure out what the
      # length of the ciphertext's encryption key is.
      allLikelyKeyLengths = kasiskiExamination(ciphertext)
-     if not SILENT_MODE:
-         keyLengthStr = ''
-         for keyLength in allLikelyKeyLengths:
-             keyLengthStr += '%s ' % (keyLength)
-         print('Kasiski Examination results say the most likely key lengths are: ' + keyLengthStr + '\n')
 
      for keyLength in allLikelyKeyLengths:
-         if not SILENT_MODE:
-             print('Attempting hack with key length %s (%s possible keys)...' % (keyLength, NUM_MOST_FREQ_LETTERS ** keyLength))
          hackedMessage = attemptHackWithKeyLength(ciphertext, keyLength)
          if hackedMessage != None:
              break
      # If none of the key lengths we found using Kasiski Examination
      # worked, start brute-forcing through key lengths.
      if hackedMessage == None:
-         if not SILENT_MODE:
-             print('Unable to hack message with likely key length(s). Brute-forcing key length...')
          for keyLength in range(1, MAX_KEY_LENGTH + 1):
              # don't re-check key lengths already tried from Kasiski
              if keyLength not in allLikelyKeyLengths:
-                 if not SILENT_MODE:
-                     print('Attempting hack with key length %s (%s possible keys)...' % (keyLength, NUM_MOST_FREQ_LETTERS ** keyLength))
                  hackedMessage = attemptHackWithKeyLength(ciphertext, keyLength)
                  if hackedMessage != None:
                      break
      return hackedMessage
 
-# If vigenereHacker.py is run (instead of imported as a module) call
-# the main() function.
+
 if __name__ == '__main__':
      main()
