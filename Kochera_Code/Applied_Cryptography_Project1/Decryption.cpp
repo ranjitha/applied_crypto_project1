@@ -59,11 +59,22 @@ bool check_key_validity(string& key) {
 	for (int i = 0;i < min(24, n);i++) { //minimum of 24 or length
 		string sub = key.substr(0, n - i);
 		if (repeat(sub)) {
+			string end = key.substr(n - i, n);
+			if (i != 0) {
+				for (int j = 0; j < end.size(); j++) {
+					if (end[j] != sub[j]) {
+						cout << end[j];
+						return false;
+					}
+
+				}
+			}
 			return repeat(sub);
 		}
 	}
 	return false;
 }
+
 
 //gives indicies from the alphabet for all the letters in the input string passed as arg
 vector<int> get_number_for_letters(string& text) {
@@ -158,6 +169,7 @@ int makeList() {
 
 
 
+
 int main() {
 	makeList();
 	//Filled vector with different string candidates from dict 1
@@ -247,7 +259,6 @@ int main() {
 		//int guess = decrypt(ciphered, candidates);
 		*/
 }
-
 
 
 
