@@ -50,7 +50,24 @@ vector <char> as_list(string key) {
 
 map <char,int> getLetterCount(string message) {
 	map <char,int> lettercount = {{'a', 0},{'b', 0}, {'c', 0}, {'d', 0}, {'e', 0}, {'f', 0}, {'g', 0}, {'h', 0}, {'i', 0}, {'j', 0}, {'k', 0}, {'l', 0}, {'m', 0}, {'n', 0}, {'o', 0}, {'p', 0}, {'q', 0}, {'r', 0}, {'s', 0}, {'t', 0}, {'u', 0}, {'v', 0}, {'w', 0}, {'x', 0}, {'y', 0}, {'z', 0}, {' ',0};
+	int ind =0;
+	for(int l=0; l<strlen(message); l++) {
+		ind = LETTERS.find(message[l]);
+		if(ind<=strlen(LETTERS)) { //find returns index if char is in Letters, if not it returns max length of the data type
+			lettercount[message[l]] +=1;
+		}
+	}
+	return lettercount;
+}
 
+string getFrequencyOrder(string message) {
+
+}
+
+int englishFreqMatchScore(string message) {
+	string freqOrder = getFrequencyOrder(message);
+	int matchScore =0;
+	
 }
 
 map <string,vector<int>> findRepeatSequences(string message) {
