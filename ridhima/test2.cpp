@@ -5,6 +5,54 @@
 #include <map> 
 using namespace std;
 
+LETTERS = " abcdefghijklmnopqrstuvwxyz";
+ETAOIN = "etaoinsrhdlucmfywgpbvkxqjz";
+NUM_MOST_FREQ_LETTERS = 10;
+MAX_KEY_LENGTH = 10;
+DICTIONARY2 = ['awesomeness', 'hearkened', 'aloneness', 'beheld', 'courtship', 'swoops', 'memphis', 'attentional', 'pintsized', 'rustics', 'hermeneutics', 'dismissive', 'delimiting', 'proposes', 'between', 'postilion', 'repress', 'racecourse', 'matures', 'directions', 'pressed', 'miserabilia', 'indelicacy', 'faultlessly', 'chuted', 'shorelines', 'irony', 'intuitiveness', 'cadgy', 'ferries', 'catcher', 'wobbly', 'protruded', 'combusting', 'unconvertible', 'successors', 'footfalls', 'bursary', 'myrtle', 'photocompose', ' ', '']
+
+
+string decryptMessage(string key, string message) {
+	return translateMessage(key, message, 'decrypt');
+}
+
+string translateMessage(string key, string message, string mode) {
+	vector <char> translated;
+	offsets = as_list(key);
+	for(int i=0; i< strlen(message); i++) {
+		char symbol = message[i];
+		auto index = LETTERS.find(symbol);
+		int new_index=0;
+		if(mode=="encrypt") {
+			new_index = (index + offsets[i % offsets.size()]) % strlen(LETTERS);
+		}
+		else {
+			new_index = (index - offsets[i % offsets.size()]) % strlen(LETTERS);
+		}
+		translated.push_back(LETTERS[new_index]);
+	}
+	string trans = "";
+	for(int j=0; j< translated.size(); j++) {
+		trans+=translated[j];
+	}
+	return trans;
+}
+
+
+vector <char> as_list(string key) {
+	vector <char> keyletters; //for each char in key, finds its corres index in LEtters and adds it to the list
+	for(int i=0; i< strlen(key); i++) {
+		auto index = LETTERS.find(key[i]);
+		keyletters[i]= index;
+	}
+	return keyletters;
+}
+
+map <char,int> getLetterCount(string message) {
+	map <char,int> lettercount = {{'a', 0},{'b', 0}, {'c', 0}, {'d', 0}, {'e', 0}, {'f', 0}, {'g', 0}, {'h', 0}, {'i', 0}, {'j', 0}, {'k', 0}, {'l', 0}, {'m', 0}, {'n', 0}, {'o', 0}, {'p', 0}, {'q', 0}, {'r', 0}, {'s', 0}, {'t', 0}, {'u', 0}, {'v', 0}, {'w', 0}, {'x', 0}, {'y', 0}, {'z', 0}, {' ',0};
+
+}
+
 map <string,vector<int>> findRepeatSequences(string message) {
 	// remove non letters and spaces from the message?
 	map <string, vector <int> > seqSpace; //keys are sequences, values are list of spaces between them 
@@ -46,7 +94,7 @@ vector <int> getUsefulFactors(int num) {
 vector <tuple<int,int>> MostCommonfactors(map <string,vector<int>> seqfactors) {
 	map<int,int> factorcounts;
 	map<int,int> iterator it2 = factorcounts.begin();
-	map <string, vector<int>> iterator it1 = seqfactors.begin();
+	map <string, vector<int>>::iterator it1 = seqfactors.begin();
 	while(it1!=seqfactors.end()){
 		vector<int> factorList=it1->second;
 		for(int factor=0;factor<factorList.size();factor++) {
@@ -85,7 +133,7 @@ vector <tuple<int,int>> MostCommonfactors(map <string,vector<int>> seqfactors) {
 vector <int> kasiski(string ciphertext){
 	repeatSpacings = findRepeatSequences(ciphertext); 
 	map <string,vector<int>> seqfactors; //factors of each number in the sequences list
-	map <string, vector<int>> iterator it = repeatSpacings.begin();
+	map <string, vector<int>>::iterator it = repeatSpacings.begin();
 	vector <int> listFactors;
 	vector <int> mostfrequent;
 	while(it!=repeatSpacings.end()) {
@@ -119,6 +167,14 @@ string getNthSubkeysLetters(int n, int keylength, string message ) {
 	}	
 }
 
+string attemptHackWithKeyLength(string ciphertext, int mostLikelyKeyLength) {
+	vector <vector<int>> allFreqScores;
+	for (int nth=1; nth <mostLikelyKeyLength+1; nth++) {
+		string nthLetters = getNthSubkeysLetters(nth, mostLikelyKeyLength, ciphertext);
+		vector <tuple<char,int>> freqScores;
+
+	}
+}
 
 void main() {
 	ciphertext=""; //add the ciphertext
