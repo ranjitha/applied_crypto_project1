@@ -70,10 +70,12 @@ def compare_cipher_with_plaintext(ciphertext, plaintext):
         shift = (ciphertext_array[i] - plaintext_array[i]) % 27
         key_shifts.append(shift)
     
-    key = [letters[shift] for shift in key_shifts]
+    key = []
+    for shift in key_shifts:
+        key += letters[shift]
 
     return ("".join(key))
-#compare_cipher_with_plaintext("jeatmwjremtyrletjd", "i am very stressed")
+#print(compare_cipher_with_plaintext("jeatmwjremtyrletjd", "i am very stressed"))
 
 
 def guess(ciphertext, plaintext):
@@ -95,3 +97,4 @@ if __name__ == '__main__':
             print("The correct guess is: ", dict[i])
         else:
             print("Wrong guess")
+
