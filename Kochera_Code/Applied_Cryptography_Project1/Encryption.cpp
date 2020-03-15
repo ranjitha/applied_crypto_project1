@@ -45,6 +45,7 @@ int scheduleKey(int i, int t, int num = 0, int skips = 0) {
 	return (num + skips*i) % t;
 }
 
+//Organizes Key based on scheduler
 vector<int> keysToEncrypt(int t, vector<int> key, int num = 0, int skips = 0) {
 	vector<int> array;
 	for (int i = 0; i < t; i++) {
@@ -76,6 +77,7 @@ string encrypt(string plaintext,vector<int> key, map<int, char> letterDict, stri
 	return enc;
 }
 
+//Puts words from dict2 into a list
 vector<string> getDict2() {
 	ifstream file;
 	file.open("dict2.txt");
@@ -87,6 +89,7 @@ vector<string> getDict2() {
 	return list_words;
 }
 
+//Returns random text for testing from dict2
 string randomText(vector<string> dict2) {
 	string plainText;
 	while (plainText.size() < 500) {

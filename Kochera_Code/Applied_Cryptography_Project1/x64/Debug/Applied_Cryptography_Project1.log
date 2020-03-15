@@ -1,4 +1,10 @@
 ﻿  Decryption.cpp
 c:\users\micha\applied_cryptography\applied_crypto_project1\kochera_code\applied_cryptography_project1\decryption.cpp(42): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 c:\users\micha\applied_cryptography\applied_crypto_project1\kochera_code\applied_cryptography_project1\decryption.cpp(59): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\micha\applied_cryptography\applied_crypto_project1\kochera_code\applied_cryptography_project1\decryption.cpp(203): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Encryption.cpp
+c:\users\micha\applied_cryptography\applied_crypto_project1\kochera_code\applied_cryptography_project1\encryption.cpp(65): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\micha\applied_cryptography\applied_crypto_project1\kochera_code\applied_cryptography_project1\encryption.cpp(110): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\micha\applied_cryptography\applied_crypto_project1\kochera_code\applied_cryptography_project1\encryption.cpp(112): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
   Applied_Cryptography_Project1.vcxproj -> C:\Users\micha\Applied_Cryptography\applied_crypto_project1\Kochera_Code\x64\Debug\Applied_Cryptography_Project1.exe
