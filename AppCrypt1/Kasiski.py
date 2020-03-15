@@ -1,206 +1,180 @@
 import itertools
+import time
+from collections import Counter
 
-englishLetterFreq = {'e': 13.51, 's': 12.07, 'i': 8.62, 'o':7.18 , 'r': 7.18, 't': 6.61, 'n': 5.75, 'c': 4.89, 'l': 4.6, 'a': 4.31, 'u': 3.74, 'd': 3.45, 'p': 3.45, 'm': 3.16, 'h': 2.59, 'b': 2.3, 'y': 2.01, 'w': 1.15, 'f': 1.15, 'v': 0.86, 'g': 0.86, 'k': 0.29, 'z': 0.29, 'q': 0.0, 'x': 0.0, 'j': 0.0}
-esiort = 'etaoinsrhdlucmfywgpbvkxqjz'
-ETAOIN = 'esiortnclaudpmhbywfvgkzqxj'
-LETTERS = ' abcdefghijklmnopqrstuvwxyz'
-NUM_MOST_FREQ_LETTERS = 3 # attempts th# is many letters per subkey
-MAX_KEY_LENGTH = 14 # will not attempt keys longer than this
+
+def get_Dict2_Frequencies(dict2):
+    list = ['awesomeness', 'hearkened', 'aloneness', 'beheld', 'courtship', 'swoops', 'memphis', 'attentional', 'pintsized',
+            'rustics', 'hermeneutics', 'dismissive', 'delimiting', 'proposes', 'between', 'postilion', 'repress',
+            'racecourse', 'matures', 'directions', 'pressed', 'miserabilia', 'indelicacy', 'faultlessly', 'chuted',
+            'shorelines', 'irony', 'intuitiveness', 'cadgy', 'ferries', 'catcher', 'wobbly', 'protruded', 'combusting',
+            'unconvertible', 'successors', 'footfalls', 'bursary', 'myrtle', 'photocompose']
+    test_str = "".join(list)
+    all_freq = Counter(test_str)
+
+    ordered_letters = ""
+    for key in all_freq:
+        all_freq[key] = (all_freq[key]/348) * 100
+
+    sorted_freq = {}
+    for w in sorted(all_freq, key=all_freq.get, reverse=True):
+        sorted_freq[w] = all_freq[w]
+        ordered_letters += w
+
+    return (sorted_freq, ordered_letters)
 
 DICTIONARY2 = ['awesomeness', 'hearkened', 'aloneness', 'beheld', 'courtship', 'swoops', 'memphis', 'attentional', 'pintsized', 'rustics', 'hermeneutics', 'dismissive', 'delimiting', 'proposes', 'between', 'postilion', 'repress', 'racecourse', 'matures', 'directions', 'pressed', 'miserabilia', 'indelicacy', 'faultlessly', 'chuted', 'shorelines', 'irony', 'intuitiveness', 'cadgy', 'ferries', 'catcher', 'wobbly', 'protruded', 'combusting', 'unconvertible', 'successors', 'footfalls', 'bursary', 'myrtle', 'photocompose', ' ', '']
 
+frequencies = get_Dict2_Frequencies(DICTIONARY2)
+english_Letter_Freq = frequencies[0]
+english_Letter_Freq['j'] = 0
+english_Letter_Freq['q'] = 0
+english_Letter_Freq['x'] = 0
+ordered_freq_letters = frequencies[1] + "jqx"
+LETTERS = ' abcdefghijklmnopqrstuvwxyz'
+Top_Freq_Lett = 5
+Max_KeyLen = 24
 
-def decryptMessage(key, message):
-    return translateMessage(key, message, 'decrypt')
+
+#No Longer Using
+def index_of_coincidence(ciphertext, alpha):
+    common = Counter(ciphertext)
+    ioc = 0
+
+    for index in alpha:
+        ioc = ioc + (common[index] * (common[index] - 1))
+
+    ioc = ioc / (len(ciphertext) *(len(ciphertext) - 1))
+    return ioc
+
+#No Longer Using
+def friedman_test(ciphertext, alpha):
+    l = 0
+
+    n = len(ciphertext)
+    i = index_of_coincidence(ciphertext, alpha)
+    l = n * (0.027) / ((n - 1) * i  - 0.0385 * n + 0.0655)
 
 
-def translateMessage(key, message, mode):
-    translated = [] # stores the encrypted/decrypted message string
-    offsets = as_list(key)
+    return l
+
+def decrypt(key, message):
+    translated = []
+    offsets = [LETTERS.index(letter) for letter in key]
     for i in range(len(message)): # loop through each character in message
         symbol = message[i]
         indx = LETTERS.index(symbol)
-        if mode == 'encrypt':
-            new_index = (indx + offsets[i % len(offsets)]) % len(LETTERS)
-        else:
-            new_index = (indx - offsets[i % len(offsets)]) % len(LETTERS)
+        new_index = (indx - offsets[i % len(offsets)]) % len(LETTERS)
         translated.append(LETTERS[new_index])
     return "".join(translated)
-            # offsets = [2, 9, 5]
-            # ptxt =     a  b  c  g  a
-            # ctxt =     c  k  h  i  j
 
+# Returns a string of the alphabet letters arranged in order of most frequently occurring in the message parameter.
+def Freq_Ord(message):
+    char_freq = Counter(message.lower())
 
-def getLetterCount(message):
-    # Returns a dictionary with keys of single letters and values of the count of how many times they appear in the message parameter.
-    letterCount = {'a': 0, 'b': 0, 'c': 0, 'd': 0, 'e': 0, 'f': 0, 'g': 0, 'h': 0, 'i': 0, 'j': 0, 'k': 0, 'l': 0, 'm': 0, 'n': 0, 'o': 0, 'p': 0, 'q': 0, 'r': 0, 's': 0, 't': 0, 'u': 0, 'v': 0, 'w': 0, 'x': 0, 'y': 0, 'z': 0, ' ':0}
-    for letter in message.lower():
-        if letter in LETTERS:
-            letterCount[letter] += 1
-    return letterCount
-
-
-def getItemAtIndexZero(x):
-    return x[0]
-
-
-def getFrequencyOrder(message):
-    # Returns a string of the alphabet letters arranged in order of most frequently occurring in the message parameter.
-    # first, get a dictionary of each letter and its frequency count
-    letterToFreq = getLetterCount(message)
-
-    # second, make a dictionary of each frequency count to each letter(s) with that frequency
-    freqToLetter = {}
+    freq_char = {}
     for letter in LETTERS:
-        if letterToFreq[letter] not in freqToLetter:
-            freqToLetter[letterToFreq[letter]] = [letter]
+        if char_freq[letter] not in freq_char:
+            freq_char[char_freq[letter]] = [letter]
         else:
-            freqToLetter[letterToFreq[letter]].append(letter)
+            freq_char[char_freq[letter]].append(letter)
 
-    # third, put each list of letters in reverse "ETAOIN" order, and then
-    # convert it to a string
-    for freq in freqToLetter:
-        freqToLetter[freq].sort(key=ETAOIN.find, reverse=True)
-        freqToLetter[freq] = ''.join(freqToLetter[freq])
+    for freq in freq_char:
+        freq_char[freq].sort(key=ordered_freq_letters.find, reverse=True)
+        freq_char[freq] = ''.join(freq_char[freq])
 
-    # fourth, convert the freqToLetter dictionary to a list of tuple
-    # pairs (key, value), then sort them
-    freqPairs = list(freqToLetter.items())
-    freqPairs.sort(key=getItemAtIndexZero, reverse=True)
+    freq_pairs = list(freq_char.items())
+    freq_pairs.sort(key=lambda x:x[0], reverse=True)
+    freq_order = []
 
-    # fifth, now that the letters are ordered by frequency, extract all
-    # the letters for the final string
-    freqOrder = []
-    for freqPair in freqPairs:
-        freqOrder.append(freqPair[1])
+    for freqPair in freq_pairs:
+        freq_order.append(freqPair[1])
 
-    return ''.join(freqOrder)
+    return ''.join(freq_order)
 
-
+#Counts the most commone and uncommon letters that are found in message
 def englishFreqMatchScore(message):
-    # Return the number of matches that the string in the message
-    # parameter has when its letter frequency is compared to English
-    # letter frequency. A "match" is how many of its six most frequent
-    # and six least frequent letters is among the six most frequent and
-    # six least frequent letters for English.
-    freqOrder = getFrequencyOrder(message)
+    freqOrder = Freq_Ord(message)
 
     matchScore = 0
-    # Find how many matches for the six most common letters there are.
-    for commonLetter in ETAOIN[:9]:
+    for commonLetter in ordered_freq_letters[:9]:
         if commonLetter in freqOrder[:9]:
             matchScore += 1
-    # Find how many matches for the six least common letters there are.
-    for uncommonLetter in ETAOIN[-6:]:
+
+    for uncommonLetter in ordered_freq_letters[-6:]:
         if uncommonLetter in freqOrder[-6:]:
             matchScore += 1
 
     return matchScore
 
+# Goes through the message and finds any 3 to 5 letter sequences that are repeated.
+def find_repeat_Spaces(message):
+    seqSpacings = {}
 
-def findRepeatSequencesSpacings(message):
-    # Goes through the message and finds any 3 to 5 letter sequences that are repeated.
-    # Returns a dict with the keys of the sequence and values of a list of spacings (num of letters between the repeats).
-
-    # Compile a list of seqLen-letter sequences found in the message.
-    seqSpacings = {}  # keys are sequences, values are list of int spacings
-
-    for seqLen in range(3, 20):
+    for seqLen in range(3, 6):
         for seqStart in range(len(message) - seqLen):
-            # Determine what the sequence is, and store it in seq
             seq = message[seqStart:seqStart + seqLen]
-            # Look for this sequence in the rest of the message
             for i in range(seqStart + seqLen, len(message) - seqLen):
                 if message[i:i + seqLen] == seq:
-                    # Found a repeated sequence.
                     if seq not in seqSpacings:
                         seqSpacings[seq] = []  # initialize blank list
-                    # Append the spacing distance between the repeated sequence and the original sequence.
                     seqSpacings[seq].append(i - seqStart)
+
     return seqSpacings
 
 
+# Returns a list of useful factors of num. By "useful" we mean factors less than MAX_KEY_LENGTH + 1.
 def getUsefulFactors(num):
-     # Returns a list of useful factors of num. By "useful" we mean factors
-     # less than MAX_KEY_LENGTH + 1. For example, getUsefulFactors(144)
-     # returns [2, 72, 3, 48, 4, 36, 6, 24, 8, 18, 9, 16, 12]
      if num < 2:
-         return [] # numbers less than 2 have no useful factors
-     factors = [] # the list of factors found
-     # When finding factors, you only need to check the integers up to
-     # MAX_KEY_LENGTH.
-     for i in range(2, MAX_KEY_LENGTH + 1): # don't test 1
+         return []
+
+     factors = []
+     for i in range(2, Max_KeyLen + 1):
          if num % i == 0:
              factors.append(i)
              factors.append(int(num / i))
-     if 1 in factors:
-         factors.remove(1)
+
      return list(set(factors))
 
 
-def getItemAtIndexOne(x):
-     return x[1]
-
-
-def getMostCommonFactors(seqFactors):
-     # First, get a count of how many times a factor occurs in seqFactors.
-     factorCounts = {} # key is a factor, value is how often if occurs
-     # seqFactors keys are sequences, values are lists of factors of the
-     # spacings. seqFactors has a value like: {'GFD': [2, 3, 4, 6, 9, 12,
-     # 18, 23, 36, 46, 69, 92, 138, 207], 'ALW': [2, 3, 4, 6, ...], ...}
-     for seq in seqFactors:
-         factorList = seqFactors[seq]
+def get_common_factors(seq_factors):
+     factor_counts = {}
+     for seq in seq_factors:
+         factorList = seq_factors[seq]
          for factor in factorList:
-             if factor not in factorCounts:
-                 factorCounts[factor] = 0
-             factorCounts[factor] += 1
-     # Second, put the factor and its count into a tuple, and make a list
-     # of these tuples so we can sort them.
-     factorsByCount = []
-     for factor in factorCounts:
-         # exclude factors larger than MAX_KEY_LENGTH
-         if factor <= MAX_KEY_LENGTH:
-             # factorsByCount is a list of tuples: (factor, factorCount)
-             # factorsByCount has a value like: [(3, 497), (2, 487), ...]
-             factorsByCount.append( (factor, factorCounts[factor]) )
-     # Sort the list by the factor count.
-     factorsByCount.sort(key=getItemAtIndexOne, reverse=True)
+             if factor not in factor_counts:
+                 factor_counts[factor] = 0
+             factor_counts[factor] += 1
+     factor_by_count = []
+     for factor in factor_counts:
+         if factor <= Max_KeyLen:
+             factor_by_count.append( (factor, factor_counts[factor]) )
 
-     return factorsByCount
+     factor_by_count.sort(key=lambda x:x[1], reverse=True)
 
+     return factor_by_count
 
-def kasiskiExamination(ciphertext):
-     # Find out the sequences of 3 to 5 letters that occur multiple times
-     # in the ciphertext. repeatedSeqSpacings has a value like:
-     # {'EXG': [192], 'NAF': [339, 972, 633], ... }
-     repeatedSeqSpacings = findRepeatSequencesSpacings(ciphertext)
-     # See getMostCommonFactors() for a description of seqFactors.
+# Find out the sequences of 3 to 5 letters that occur multiple times
+def kasiski_test(ciphertext):
+     repeatedSeqSpacings = find_repeat_Spaces(ciphertext)
      seqFactors = {}
+
      for seq in repeatedSeqSpacings:
          seqFactors[seq] = []
          for spacing in repeatedSeqSpacings[seq]:
              seqFactors[seq].extend(getUsefulFactors(spacing))
-     # See getMostCommonFactors() for a description of factorsByCount.
-     factorsByCount = getMostCommonFactors(seqFactors)
-     # Now we extract the factor counts from factorsByCount and
-     # put them in allLikelyKeyLengths so that they are easier to
-     # use later.
-     allLikelyKeyLengths = []
+
+     factorsByCount = get_common_factors(seqFactors)
+
+     probable_keyLens = []
+
+     for tup in factorsByCount:
+         probable_keyLens.append(tup[0])
+     return probable_keyLens
 
 
-     for twoIntTuple in factorsByCount:
-         allLikelyKeyLengths.append(twoIntTuple[0])
-     return allLikelyKeyLengths
-
-
-
-def getNthSubkeysLetters(n, keyLength, message):
-     # Returns every Nth letter for each keyLength set of letters in text.
-     # E.g. getNthSubkeysLetters(1, 3, 'ABCABCABC') returns 'AAA'
-     #      getNthSubkeysLetters(2, 3, 'ABCABCABC') returns 'BBB'
-     #      getNthSubkeysLetters(3, 3, 'ABCABCABC') returns 'CCC'
-     #      getNthSubkeysLetters(1, 5, 'ABCDEFGHI') returns 'AF'
-
+# Returns every Nth letter for each keyLength set of letters in text.
+def get_n_jumped_crypt(n, keyLength, message):
      i = n - 1
      letters = []
      while i < len(message):
@@ -209,94 +183,75 @@ def getNthSubkeysLetters(n, keyLength, message):
 
      return ''.join(letters)
 
-
-def as_list(key):
-     return [LETTERS.index(letter) for letter in key]
-
-
-def attemptHackWithKeyLength(ciphertext, mostLikelyKeyLength):
-     # Determine the most likely letters for each letter in the key.
-     # allFreqScores is a list of mostLikelyKeyLength number of lists.
-     # These inner lists are the freqScores lists.
+# Determine the most likely letters for each letter in the key.
+def try_key_length(ciphertext, probable_keyLen,start_time):
      allFreqScores = []
-     for nth in range(1, mostLikelyKeyLength + 1):
-         nthLetters = getNthSubkeysLetters(nth, mostLikelyKeyLength, ciphertext)
-         # freqScores is a list of tuples like: [(<letter>, <Eng. Freq. match score>), ... ]
+     for nth in range(1, probable_keyLen + 1):
+         nthLetters = get_n_jumped_crypt(nth, probable_keyLen, ciphertext)
 
          freqScores = []
          for possibleKey in LETTERS:
-             decryptedText = decryptMessage(possibleKey, nthLetters)
-             keyAndFreqMatchTuple = (possibleKey, englishFreqMatchScore(decryptedText))
+             decrypted = decrypt(possibleKey, nthLetters)
+             keyAndFreqMatchTuple = (possibleKey, englishFreqMatchScore(decrypted))
              freqScores.append(keyAndFreqMatchTuple)
          # Sort by match score
-         freqScores.sort(key=getItemAtIndexOne, reverse=True)
-         allFreqScores.append(freqScores[:NUM_MOST_FREQ_LETTERS])
+         freqScores.sort(key=lambda x:x[1], reverse=True)
+         allFreqScores.append(freqScores[:Top_Freq_Lett])
 
 
-     # Try every combination of the most likely letters for each position
-     # in the key.
-     for indexes in itertools.product(range(NUM_MOST_FREQ_LETTERS), repeat=mostLikelyKeyLength):
-         # Create a possible key from the letters in allFreqScores
+     # Brute Force with possible Key Length and likely letters
+     for indexes in itertools.product(range(Top_Freq_Lett), repeat=probable_keyLen):
          possibleKey = ''
-         for i in range(mostLikelyKeyLength):
+         for i in range(probable_keyLen):
              possibleKey += allFreqScores[i][indexes[i]][0]
 
-         decryptedText = decryptMessage(possibleKey, ciphertext)
-         #print(len(decryptedText), len(ciphertext))
-         # Set the hacked ciphertext to the original casing.
+         decrypted = decrypt(possibleKey, ciphertext)
+
          origCase = []
          for i in range(len(ciphertext)):
-             origCase.append(decryptedText[i].lower())
+             origCase.append(decrypted[i].lower())
          
-         decryptedText = ''.join(origCase)
+         decrypted = ''.join(origCase)
          
-         list_of_words = decryptedText.split(" ")
+         list_of_words = decrypted.split(" ")
          if set(list_of_words) <= set(DICTIONARY2):
-             return decryptedText
+             return decrypted
+         if(time.time() - start_time > 180):
+             break
+         print("Running " + str(probable_keyLen))
      return None
 
 
-
-def hackVigenere(ciphertext):
-     # use kasiskixamination to figure out what the length of the ciphertext's encryption key is.
-     allLikelyKeyLengths = kasiskiExamination(ciphertext)
-     count = 0
+def hackVigenere(ciphertext, start_time):
+     allLikelyKeyLengths = kasiski_test(ciphertext)
 
      for keyLength in allLikelyKeyLengths:
-         #if(count == 1):
-         #    continue
-         #elif(count == 3 or count == 4):
-         #    continue
-         hackedMessage = attemptHackWithKeyLength(ciphertext, keyLength)
+         hackedMessage = try_key_length(ciphertext, keyLength, start_time)
          if hackedMessage != None:
              break
 
-     # brute-force key lengths if none were found thro' kasiskiExamination
-     if hackedMessage == None:
-         for keyLength in range(1, MAX_KEY_LENGTH + 1):
-             # no re-checking key lengths already tried from Kasiski
-             if keyLength not in allLikelyKeyLengths:
-                 hackedMessage = attemptHackWithKeyLength(ciphertext, keyLength)
-                 if hackedMessage != None:
-                     break
+         #Never going to get to this in 3 minutes
+         # brute-force key lengths if none were found thro' kasiskiExamination
+         #if hackedMessage == None:
+             #for keyLength in range(1, Max_KeyLen + 1):
+                 # no re-checking key lengths already tried from Kasiski
+                 #if keyLength not in allLikelyKeyLengths:
+                     #hackedMessage = try_key_length(ciphertext, keyLength, start_time)
+                     #if (time.time() - start_time > 180):
+                         #break
+                     #if hackedMessage != None:
+                         #break
      return hackedMessage
 
 def main():
     ciphertext = input("Enter CipherText Here: ")
-    hackedMessage = hackVigenere(ciphertext)
+    start_time = time.time()
+    hackedMessage = hackVigenere(ciphertext, start_time)
     if hackedMessage != None:
         print("This is the decrypted message: \n", hackedMessage)
+        print("My program took", time.time() - start_time, "sec to run")
     else:
-        print('Failed to hack encryption.')
-
-
-def main():
-     ciphertext = input("Enter CipherText Here: ")
-     hackedMessage = hackVigenere(ciphertext)
-     if hackedMessage != None:
-         print("This is the decrypted message: \n", hackedMessage)
-     else:
-         print('Failed to hack encryption.')
+        print('Failed to hack encryption in time.')
 
 if __name__ == '__main__':
      main()
