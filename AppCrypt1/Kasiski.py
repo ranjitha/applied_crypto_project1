@@ -6,6 +6,7 @@ ETAOIN = 'esiortnclaudpmhbywfvgkzqxj'
 LETTERS = ' abcdefghijklmnopqrstuvwxyz'
 NUM_MOST_FREQ_LETTERS = 3 # attempts th# is many letters per subkey
 MAX_KEY_LENGTH = 14 # will not attempt keys longer than this
+
 DICTIONARY2 = ['awesomeness', 'hearkened', 'aloneness', 'beheld', 'courtship', 'swoops', 'memphis', 'attentional', 'pintsized', 'rustics', 'hermeneutics', 'dismissive', 'delimiting', 'proposes', 'between', 'postilion', 'repress', 'racecourse', 'matures', 'directions', 'pressed', 'miserabilia', 'indelicacy', 'faultlessly', 'chuted', 'shorelines', 'irony', 'intuitiveness', 'cadgy', 'ferries', 'catcher', 'wobbly', 'protruded', 'combusting', 'unconvertible', 'successors', 'footfalls', 'bursary', 'myrtle', 'photocompose', ' ', '']
 
 
@@ -46,14 +47,11 @@ def getItemAtIndexZero(x):
 
 
 def getFrequencyOrder(message):
-    # Returns a string of the alphabet letters arranged in order of most
-    # frequently occurring in the message parameter.
-
+    # Returns a string of the alphabet letters arranged in order of most frequently occurring in the message parameter.
     # first, get a dictionary of each letter and its frequency count
     letterToFreq = getLetterCount(message)
 
-    # second, make a dictionary of each frequency count to each letter(s)
-    # with that frequency
+    # second, make a dictionary of each frequency count to each letter(s) with that frequency
     freqToLetter = {}
     for letter in LETTERS:
         if letterToFreq[letter] not in freqToLetter:
@@ -226,16 +224,13 @@ def as_list(key):
 
 def attemptHackWithKeyLength(ciphertext, mostLikelyKeyLength):
      # Determine the most likely letters for each letter in the key.
-     #ciphertextUp = ciphertext.upper()
      # allFreqScores is a list of mostLikelyKeyLength number of lists.
      # These inner lists are the freqScores lists.
      allFreqScores = []
      for nth in range(1, mostLikelyKeyLength + 1):
          nthLetters = getNthSubkeysLetters(nth, mostLikelyKeyLength, ciphertext)
-         # freqScores is a list of tuples like:
-         # [(<letter>, <Eng. Freq. match score>), ... ]
-         # List is sorted by match score. Higher score means better match.
-         # See the englishFreqMatchScore() comments in freqAnalysis.py.
+         # freqScores is a list of tuples like: [(<letter>, <Eng. Freq. match score>), ... ]
+
          freqScores = []
          for possibleKey in LETTERS:
              decryptedText = decryptMessage(possibleKey, nthLetters)
@@ -271,10 +266,10 @@ def attemptHackWithKeyLength(ciphertext, mostLikelyKeyLength):
 
 
 def hackVigenere(ciphertext):
-     # First, we need to do Kasiski Examination to figure out what the
-     # length of the ciphertext's encryption key is.
+     # use kasiskixamination to figure out what the length of the ciphertext's encryption key is.
      allLikelyKeyLengths = kasiskiExamination(ciphertext)
      count = 0
+
      for keyLength in allLikelyKeyLengths:
          #if(count == 1):
          #    continue
@@ -283,11 +278,11 @@ def hackVigenere(ciphertext):
          hackedMessage = attemptHackWithKeyLength(ciphertext, keyLength)
          if hackedMessage != None:
              break
-     # If none of the key lengths we found using Kasiski Examination
-     # worked, start brute-forcing through key lengths.
+
+     # brute-force key lengths if none were found thro' kasiskiExamination
      if hackedMessage == None:
          for keyLength in range(1, MAX_KEY_LENGTH + 1):
-             # don't re-check key lengths already tried from Kasiski
+             # no re-checking key lengths already tried from Kasiski
              if keyLength not in allLikelyKeyLengths:
                  hackedMessage = attemptHackWithKeyLength(ciphertext, keyLength)
                  if hackedMessage != None:
@@ -302,6 +297,14 @@ def main():
     else:
         print('Failed to hack encryption.')
 
+
+def main():
+     ciphertext = input("Enter CipherText Here: ")
+     hackedMessage = hackVigenere(ciphertext)
+     if hackedMessage != None:
+         print("This is the decrypted message: \n", hackedMessage)
+     else:
+         print('Failed to hack encryption.')
 
 if __name__ == '__main__':
      main()
