@@ -4,7 +4,7 @@ from collections import Counter
 from scipy import stats
 
 
-def test1_decryption(): # michael - input ciphertext here to be decrypted
+def test1_decryption(cipher_input): # michael - input ciphertext here to be decrypted
 
     def get_longest_common_substring(string, m, lcs):
         length = 0
@@ -90,14 +90,13 @@ def test1_decryption(): # michael - input ciphertext here to be decrypted
         return check_key_validity(key)
     
     
-    def main():
+    def test1(cipher_input):
         dict = {
         0: "gunfights outjuts molters forgot bedclothes cirrus servomotors tumulus incompleteness provoking sixteens breezeways layoff marinas directives teabowl vugs mainframe gazebo bushwhacks testers incompressibility unthoughtfully rivalled repaint nonuple guerre semiaquatic flashgun esthetics icefall touchups baltic baba gorget groper remittances nimbus podium reassurance preventable overroasts chests interchangeable pentarch doctoring potentiated salts overlay rustled recyclability version mottled lee",
         1: "intersectional marquees undeniably curates papa invidiousness libidinal congratulate annexion stompers oxblood relicense incept viny dimers typicality meteors indebtedness triceratops statisms arsenides horsed melanin smelt ulsters films townfolk orchestrations disintoxication ceiled allegories pinsetters misdeliveries firebreak baronages sphere stalest amino linkboy plasm avers cocktail reconfirming rearoused paternity moderation pontificated justices overplays borzois trailblazers smelters cor",
         2: "frosteds shelters tannest falterer consoles negroes creosote lightful foreshadow mustangs despatches unofficially sanitarium single integrates nebula del stubby impoliteness royal ariel triceratops episcopalians pensive passports largesses manwise repositioned specified promulgates polled fetus immune extinguisher paradise polytheist abdicated ables exotica redecorating embryological scintillatingly shysters parroted twosomes spermicide adapters illustrators suffusion bonze alnicoes acme clair p",
         3: "distributee hermitage talmudic thruput apologues recapitulate keyman palinodes semiconscious fauns culver evicts stubbornness stair virginals unto leonardo lyrist merci procuration repulsing medicated lagoons cohort caravans pampas maundered riggings undersell investigator arteriolar unpolled departmentalization penchants shriveled obstreperous misusing synfuels strewn ottawas novelising cautiously foulmouthed travestied bifurcation classicists affectation inverness emits admitter bobsledded erg",
         4: "undercurrents laryngeal elevate betokened chronologist ghostwrites ombres dollying airship probates music debouching countermanded rivalling linky wheedled heydey sours nitrates bewares rideable woven rerecorded currie vasectomize mousings rootstocks langley propaganda numismatics fucked subduers babcock jauntily ascots nested notifying mountainside dirk chancellors disassociating eleganter radiant convexity appositeness axonic trainful nestlers applicably correctional stovers organdy bdrm insis"}
-        cipher_input = input("Please input ciphertext to be decrypted: ")
         for i in range(5):
             bool = guess(cipher_input, dict[i])
             if bool is True:
@@ -105,10 +104,10 @@ def test1_decryption(): # michael - input ciphertext here to be decrypted
                 return dict[i]
         return None
     
-    main()
+    return test1(cipher_input)
     #end of test 1
 
-def test2_decryption(): # pass inputed ciphertext here to be decrypted if test1 doesnt find a valid decryption
+def test2_decryption(ciphertext, start_time): # pass inputed ciphertext here to be decrypted if test1 doesnt find a valid decryption
 
     # Get frequency of all the letters from the given dictionary
     def get_dictionary2_frequencies(dict2):
@@ -358,9 +357,7 @@ def test2_decryption(): # pass inputed ciphertext here to be decrypted if test1 
         return potential_decrypted_message
     
     
-    def main():
-        ciphertext = input("Enter CipherText Here: ")
-        start_time = time.time()
+    def main(ciphertext, start_time):
         potential_decrypted_message = poly_substitution_decrypt(ciphertext, start_time)
         if potential_decrypted_message != None:
             print("This is the decrypted message: \n", potential_decrypted_message)
@@ -368,11 +365,21 @@ def test2_decryption(): # pass inputed ciphertext here to be decrypted if test1 
         else:
             print('Failed to hack encryption in time.')
     
-    
-    main()
+
+    main(ciphertext, start_time)
     #end of test 1
 
+def main():
+    ciphertext = input("Enter CipherText Here: ")
+    start_time = time.time()
+    if(len(ciphertext) == 500):
+        test1 = test1_decryption(ciphertext)
+    else:
+        test1 = None
+    if(test1 == None):
+        test2 = test2_decryption(ciphertext, start_time)
+
+
 if __name__ == '__main__':
-    test1_decryption()
-    test2_decryption()
+    main()
      
