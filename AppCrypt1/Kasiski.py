@@ -1,6 +1,7 @@
 import itertools
 import time
 from collections import Counter
+from scipy import stats
 
 
 def get_Dict2_Frequencies(dict2):
@@ -12,6 +13,7 @@ def get_Dict2_Frequencies(dict2):
     test_str = "".join(list)
     all_freq = Counter(test_str)
 
+    freq_list=[]
     ordered_letters = ""
     for key in all_freq:
         all_freq[key] = (all_freq[key]/348) * 100
@@ -19,9 +21,10 @@ def get_Dict2_Frequencies(dict2):
     sorted_freq = {}
     for w in sorted(all_freq, key=all_freq.get, reverse=True):
         sorted_freq[w] = all_freq[w]
+        freq_list.append(all_freq[w])
         ordered_letters += w
 
-    return (sorted_freq, ordered_letters)
+    return (sorted_freq, ordered_letters, freq_list)
 
 DICTIONARY2 = ['awesomeness', 'hearkened', 'aloneness', 'beheld', 'courtship', 'swoops', 'memphis', 'attentional', 'pintsized', 'rustics', 'hermeneutics', 'dismissive', 'delimiting', 'proposes', 'between', 'postilion', 'repress', 'racecourse', 'matures', 'directions', 'pressed', 'miserabilia', 'indelicacy', 'faultlessly', 'chuted', 'shorelines', 'irony', 'intuitiveness', 'cadgy', 'ferries', 'catcher', 'wobbly', 'protruded', 'combusting', 'unconvertible', 'successors', 'footfalls', 'bursary', 'myrtle', 'photocompose', ' ', '']
 
@@ -32,7 +35,7 @@ english_Letter_Freq['q'] = 0
 english_Letter_Freq['x'] = 0
 ordered_freq_letters = frequencies[1] + "jqx"
 LETTERS = ' abcdefghijklmnopqrstuvwxyz'
-Top_Freq_Lett = 5
+Top_Freq_Letter = 5
 Max_KeyLen = 24
 
 
@@ -117,7 +120,7 @@ def find_repeat_Spaces(message):
             for i in range(seqStart + seqLen, len(message) - seqLen):
                 if message[i:i + seqLen] == seq:
                     if seq not in seqSpacings:
-                        seqSpacings[seq] = []  # initialize blank list
+                        seqSpacings[seq] = []
                     seqSpacings[seq].append(i - seqStart)
 
     return seqSpacings
@@ -158,17 +161,16 @@ def get_common_factors(seq_factors):
 def kasiski_test(ciphertext):
      repeatedSeqSpacings = find_repeat_Spaces(ciphertext)
      seqFactors = {}
-
      for seq in repeatedSeqSpacings:
          seqFactors[seq] = []
          for spacing in repeatedSeqSpacings[seq]:
              seqFactors[seq].extend(getUsefulFactors(spacing))
 
-     factorsByCount = get_common_factors(seqFactors)
+     factors_by_count = get_common_factors(seqFactors)
 
      probable_keyLens = []
 
-     for tup in factorsByCount:
+     for tup in factors_by_count:
          probable_keyLens.append(tup[0])
      return probable_keyLens
 
@@ -196,11 +198,11 @@ def try_key_length(ciphertext, probable_keyLen,start_time):
              freqScores.append(keyAndFreqMatchTuple)
          # Sort by match score
          freqScores.sort(key=lambda x:x[1], reverse=True)
-         allFreqScores.append(freqScores[:Top_Freq_Lett])
+         allFreqScores.append(freqScores[:Top_Freq_Letter])
 
 
      # Brute Force with possible Key Length and likely letters
-     for indexes in itertools.product(range(Top_Freq_Lett), repeat=probable_keyLen):
+     for indexes in itertools.product(range(Top_Freq_Letter), repeat=probable_keyLen):
          possibleKey = ''
          for i in range(probable_keyLen):
              possibleKey += allFreqScores[i][indexes[i]][0]
@@ -218,7 +220,6 @@ def try_key_length(ciphertext, probable_keyLen,start_time):
              return decrypted
          if(time.time() - start_time > 180):
              break
-         print("Running " + str(probable_keyLen))
      return None
 
 

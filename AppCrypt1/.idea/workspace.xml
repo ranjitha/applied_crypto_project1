@@ -16,11 +16,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Kasiski.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="39" lean-forward="true" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+            <state relative-caret-position="-629">
+              <caret line="3" column="23" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="23" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
-                <element signature="e#2413#2603#0" />
               </folding>
             </state>
           </provider>
@@ -48,6 +47,7 @@
       <find>getUsef</find>
       <find>getLetterCount</find>
       <find>translateMessage</find>
+      <find>stats</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -62,7 +62,7 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-15" />
-    <option name="width" value="1948" />
+    <option name="width" value="1950" />
     <option name="height" value="2075" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -71,7 +71,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -83,6 +82,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -150,16 +150,18 @@
       <workItem from="1584231585843" duration="4609000" />
       <workItem from="1584249178857" duration="144000" />
       <workItem from="1584249402955" duration="25153000" />
+      <workItem from="1584278507363" duration="2991000" />
+      <workItem from="1584282357323" duration="18000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48613000" />
+    <option name="totallyTimeSpent" value="51622000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10195813" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10465901" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -202,7 +204,7 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/AppCrypt1$Kasiski.coverage" NAME="Kasiski Coverage Results" MODIFIED="1584274754247" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AppCrypt1$Kasiski.coverage" NAME="Kasiski Coverage Results" MODIFIED="1584282012468" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
@@ -235,11 +237,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Kasiski.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="39" lean-forward="true" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+        <state relative-caret-position="-629">
+          <caret line="3" column="23" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="23" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
-            <element signature="e#2413#2603#0" />
           </folding>
         </state>
       </provider>
