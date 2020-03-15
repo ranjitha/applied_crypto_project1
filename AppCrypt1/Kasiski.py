@@ -1,10 +1,11 @@
 import itertools
 
-englishLetterFreq = {'e': 12.02, 't': 9.1, 'a': 8.12, 'o': 7.68, 'i': 7.31, 'n': 6.95, 's': 6.28, 'r': 6.02, 'h': 5.92, 'd': 4.32, 'l': 3.98, 'u': 2.88, 'c': 2.71, 'm': 2.61, 'f': 2.30, 'y': 2.11, 'w': 2.09, 'g': 2.03, 'p': 1.82, 'b': 1.49, 'v': 1.11, 'k': 0.69, 'x': 0.17, 'q': 0.11, 'j': 0.10, 'z': 0.07}
-ETAOIN = 'etaoinsrhdlucmfywgpbvkxqjz'
+englishLetterFreq = {'e': 13.51, 's': 12.07, 'i': 8.62, 'o':7.18 , 'r': 7.18, 't': 6.61, 'n': 5.75, 'c': 4.89, 'l': 4.6, 'a': 4.31, 'u': 3.74, 'd': 3.45, 'p': 3.45, 'm': 3.16, 'h': 2.59, 'b': 2.3, 'y': 2.01, 'w': 1.15, 'f': 1.15, 'v': 0.86, 'g': 0.86, 'k': 0.29, 'z': 0.29, 'q': 0.0, 'x': 0.0, 'j': 0.0}
+esiort = 'etaoinsrhdlucmfywgpbvkxqjz'
+ETAOIN = 'esiortnclaudpmhbywfvgkzqxj'
 LETTERS = ' abcdefghijklmnopqrstuvwxyz'
-NUM_MOST_FREQ_LETTERS = 24 # attempts th# is many letters per subkey
-MAX_KEY_LENGTH = 30 # will not attempt keys longer than this
+NUM_MOST_FREQ_LETTERS = 3 # attempts th# is many letters per subkey
+MAX_KEY_LENGTH = 14 # will not attempt keys longer than this
 DICTIONARY2 = ['awesomeness', 'hearkened', 'aloneness', 'beheld', 'courtship', 'swoops', 'memphis', 'attentional', 'pintsized', 'rustics', 'hermeneutics', 'dismissive', 'delimiting', 'proposes', 'between', 'postilion', 'repress', 'racecourse', 'matures', 'directions', 'pressed', 'miserabilia', 'indelicacy', 'faultlessly', 'chuted', 'shorelines', 'irony', 'intuitiveness', 'cadgy', 'ferries', 'catcher', 'wobbly', 'protruded', 'combusting', 'unconvertible', 'successors', 'footfalls', 'bursary', 'myrtle', 'photocompose', ' ', '']
 
 
@@ -101,16 +102,6 @@ def englishFreqMatchScore(message):
     return matchScore
 
 
-
-def main():
-    ciphertext = input("Enter CipherText Here: ")
-    hackedMessage = hackVigenere(ciphertext)
-    if hackedMessage != None:
-        print("This is the decrypted message: \n", hackedMessage)
-    else:
-        print('Failed to hack encryption.')
-
-
 def findRepeatSequencesSpacings(message):
     # Goes through the message and finds any 3 to 5 letter sequences
     # that are repeated. Returns a dict with the keys of the sequence and
@@ -203,6 +194,8 @@ def kasiskiExamination(ciphertext):
      # put them in allLikelyKeyLengths so that they are easier to
      # use later.
      allLikelyKeyLengths = []
+
+
      for twoIntTuple in factorsByCount:
          allLikelyKeyLengths.append(twoIntTuple[0])
      return allLikelyKeyLengths
@@ -281,8 +274,12 @@ def hackVigenere(ciphertext):
      # First, we need to do Kasiski Examination to figure out what the
      # length of the ciphertext's encryption key is.
      allLikelyKeyLengths = kasiskiExamination(ciphertext)
-
+     count = 0
      for keyLength in allLikelyKeyLengths:
+         #if(count == 1):
+         #    continue
+         #elif(count == 3 or count == 4):
+         #    continue
          hackedMessage = attemptHackWithKeyLength(ciphertext, keyLength)
          if hackedMessage != None:
              break
@@ -296,6 +293,14 @@ def hackVigenere(ciphertext):
                  if hackedMessage != None:
                      break
      return hackedMessage
+
+def main():
+    ciphertext = input("Enter CipherText Here: ")
+    hackedMessage = hackVigenere(ciphertext)
+    if hackedMessage != None:
+        print("This is the decrypted message: \n", hackedMessage)
+    else:
+        print('Failed to hack encryption.')
 
 
 if __name__ == '__main__':

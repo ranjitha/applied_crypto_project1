@@ -172,12 +172,13 @@ int makeList() {
 
 
 int main() {
-	
+	string can = "masterwork swept squanders grounders idolatries swapper pave croupier dramatists magnified hypnoses delivery tassels marquise entailments circuits crampon nationalism nictitation anticapitalists dancingly soothly patriarchs goodie whickers baggy omnipotent sadist ameba processions beggary rename nonassertively macerators lectureship shipwrights sadden backups rhymer offstage schistose ebbs restorer graecizes subjoining leathering smocks leukocyte waled temperer embroglios bolivar repines teletyp";
+
 	vector<string> dict2words = getDict2();
 	string text = randomText(dict2words);
 	vector<string> tests;
 	cout << text;
-	for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 10000; i++) {
 		string rando = randomText(dict2words);
 		bool found = (std::find(tests.begin(), tests.end(), rando) != tests.end());
 		if (!found) {
@@ -190,6 +191,32 @@ int main() {
 
 	for (string text : tests) {
 		file << text << endl;
+	}
+
+	vector<vector<int>> keys = GenerateKeyRange();
+	vector<vector<int>> AllCombos;
+
+	for (vector<int> key : keys) {
+		for (int i = 0; i < key.size(); i++) {
+			for (int j = 0; j < key.size(); j++) {
+				AllCombos.push_back(keysToEncrypt(key.size(), key, i, j));
+			}
+		}
+	}
+	vector<string> ciphersOne;
+
+	for (string cipher : ciphersOne) {
+		for (int i = 0;i < 5;i++) {
+			bool ans = guess(cipher, tests[i]);
+			if (ans == true) {
+				cout << "The correct guess is: " << endl;
+				cout << candidates[i];
+				break;
+			}
+			else {
+				cout << "Wrong Guess";
+			}
+		}
 	}
 
 	/*
@@ -206,6 +233,11 @@ int main() {
 			}
 		}
 	}
+
+	vector<int> testKey = keysToEncrypt(AllCombos[500].size(), AllCombos[500], 2);
+	string cipherTest = get_cipherTextTest(can, testKey);
+	cout << cipherTest << endl;
+	cout << "This work";
 
 	vector<string> ciphersOne;
 	vector<string> ciphersTwo;

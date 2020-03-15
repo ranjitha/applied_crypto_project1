@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0eeb523d-572e-47df-bd0b-054d5549da2e" name="Default Changelist" comment="" />
+    <list default="true" id="0eeb523d-572e-47df-bd0b-054d5549da2e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Kasiski.py" beforeDir="false" afterPath="$PROJECT_DIR$/Kasiski.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/.vs/Applied_Cryptography_Project1/v15/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/.vs/Applied_Cryptography_Project1/v15/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/.vs/Applied_Cryptography_Project1/v15/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/.vs/Applied_Cryptography_Project1/v15/Browse.VC.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/Applied_Cryptography_Project1.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/Applied_Cryptography_Project1.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/Applied_Cryptography_Project1.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/Applied_Cryptography_Project1.vcxproj.filters" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/Decryption.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/Decryption.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/Encryption.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/Encryption.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/CL.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/CL.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/CL.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/link.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/link.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_.E1125D59.tlog/link.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_Cryptography_Project1.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Applied_Cryptography_Project1.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Decryption.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Decryption.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Encryption.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/Encryption.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/vc141.idb" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/vc141.idb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/vc141.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/Applied_Cryptography_Project1/x64/Debug/vc141.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/x64/Debug/Applied_Cryptography_Project1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/x64/Debug/Applied_Cryptography_Project1.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/x64/Debug/Applied_Cryptography_Project1.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/x64/Debug/Applied_Cryptography_Project1.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kochera_Code/x64/Debug/Applied_Cryptography_Project1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Kochera_Code/x64/Debug/Applied_Cryptography_Project1.pdb" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -9,15 +33,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Kasiski.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="315" column="33" lean-forward="true" selection-start-line="315" selection-start-column="33" selection-end-line="315" selection-end-column="33" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-1768">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -35,7 +56,11 @@
     <findStrings>
       <find>NONLETTER</find>
       <find>SILENT</find>
+      <find>hackVigenere</find>
     </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -44,12 +69,12 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1775" />
-    <option name="y" value="635" />
-    <option name="width" value="1950" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1905" />
+    <option name="width" value="1948" />
     <option name="height" value="2075" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -70,6 +95,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -126,53 +152,70 @@
       <option name="presentableId" value="Default" />
       <updated>1584126328365</updated>
       <workItem from="1584126329801" duration="9332000" />
+      <workItem from="1584221947611" duration="570000" />
+      <workItem from="1584222547782" duration="28000" />
+      <workItem from="1584222605598" duration="8668000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9332000" />
+    <option name="totallyTimeSpent" value="18598000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
-    <editor active="true" />
+    <frame x="762" y="0" width="779" height="830" extended-state="0" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2498312" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21518987" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.329429" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33284023" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39970717" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="SciView" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Docker" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Kasiski.py</url>
+          <line>275</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/AppCrypt1$Kasiski.coverage" NAME="Kasiski Coverage Results" MODIFIED="1584145313752" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AppCrypt1$Kasiski.coverage" NAME="Kasiski Coverage Results" MODIFIED="1584230932900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://C:/Python37/Lib/urllib/parse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="820" selection-start-line="820" selection-end-line="820" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Kasiski.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="315" column="33" lean-forward="true" selection-start-line="315" selection-start-column="33" selection-end-line="315" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-1768">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>

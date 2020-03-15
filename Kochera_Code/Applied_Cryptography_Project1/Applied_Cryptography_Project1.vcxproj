@@ -123,11 +123,9 @@
   <ItemGroup>
     <ClCompile Include="Decryption.cpp" />
     <ClCompile Include="Encryption.cpp" />
-    <ClCompile Include="Kasiski.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Encryption.h" />
-    <ClInclude Include="Kasiski.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="dict2.txt" />

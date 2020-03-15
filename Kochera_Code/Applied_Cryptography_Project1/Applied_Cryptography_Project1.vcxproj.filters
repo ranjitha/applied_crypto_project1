@@ -21,15 +21,9 @@
     <ClCompile Include="Decryption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Kasiski.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Encryption.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Kasiski.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
