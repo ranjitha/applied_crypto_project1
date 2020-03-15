@@ -15,7 +15,6 @@ def decryptMessage(key, message):
 def translateMessage(key, message, mode):
     translated = [] # stores the encrypted/decrypted message string
     offsets = as_list(key)
-
     for i in range(len(message)): # loop through each character in message
         symbol = message[i]
         indx = LETTERS.index(symbol)
@@ -31,8 +30,7 @@ def translateMessage(key, message, mode):
 
 
 def getLetterCount(message):
-    # Returns a dictionary with keys of single letters and values of the
-    # count of how many times they appear in the message parameter.
+    # Returns a dictionary with keys of single letters and values of the count of how many times they appear in the message parameter.
     letterCount = {'a': 0, 'b': 0, 'c': 0, 'd': 0, 'e': 0, 'f': 0, 'g': 0, 'h': 0, 'i': 0, 'j': 0, 'k': 0, 'l': 0, 'm': 0, 'n': 0, 'o': 0, 'p': 0, 'q': 0, 'r': 0, 's': 0, 't': 0, 'u': 0, 'v': 0, 'w': 0, 'x': 0, 'y': 0, 'z': 0, ' ':0}
     for letter in message.lower():
         if letter in LETTERS:
@@ -87,8 +85,8 @@ def englishFreqMatchScore(message):
 
     matchScore = 0
     # Find how many matches for the six most common letters there are.
-    for commonLetter in ETAOIN[:6]:
-        if commonLetter in freqOrder[:6]:
+    for commonLetter in ETAOIN[:9]:
+        if commonLetter in freqOrder[:9]:
             matchScore += 1
     # Find how many matches for the six least common letters there are.
     for uncommonLetter in ETAOIN[-6:]:
@@ -99,11 +97,8 @@ def englishFreqMatchScore(message):
 
 
 def findRepeatSequencesSpacings(message):
-    # Goes through the message and finds any 3 to 5 letter sequences
-    # that are repeated. Returns a dict with the keys of the sequence and
-    # values of a list of spacings (num of letters between the repeats).
-    # Use a regular expression to remove non-letters from the message.
-    #message = NONLETTERS_PATTERN.sub('', message.lower())
+    # Goes through the message and finds any 3 to 5 letter sequences that are repeated.
+    # Returns a dict with the keys of the sequence and values of a list of spacings (num of letters between the repeats).
 
     # Compile a list of seqLen-letter sequences found in the message.
     seqSpacings = {}  # keys are sequences, values are list of int spacings
@@ -118,8 +113,7 @@ def findRepeatSequencesSpacings(message):
                     # Found a repeated sequence.
                     if seq not in seqSpacings:
                         seqSpacings[seq] = []  # initialize blank list
-                    # Append the spacing distance between the repeated
-                    # sequence and the original sequence.
+                    # Append the spacing distance between the repeated sequence and the original sequence.
                     seqSpacings[seq].append(i - seqStart)
     return seqSpacings
 
@@ -203,8 +197,6 @@ def getNthSubkeysLetters(n, keyLength, message):
      #      getNthSubkeysLetters(3, 3, 'ABCABCABC') returns 'CCC'
      #      getNthSubkeysLetters(1, 5, 'ABCDEFGHI') returns 'AF'
 
-     # Use a regular expression to remove non-letters from the message.
-     #message = NONLETTERS_PATTERN.sub('', message)
      i = n - 1
      letters = []
      while i < len(message):
