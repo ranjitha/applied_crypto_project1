@@ -380,6 +380,9 @@ def main():
     if(test1 == None):
         test2 = test2_decryption(ciphertext, start_time)
 
+    finish = input("Enter any key to end the program: ")
+
+
 
 if __name__ == '__main__':
     main()
