@@ -137,7 +137,7 @@ def test2_decryption(ciphertext, start_time): # Pass inputed ciphertext here to 
     english_Letter_Freq['x'] = 0
     ordered_freq_letters = frequencies[1] + "jqx"
     LETTERS = ' abcdefghijklmnopqrstuvwxyz'
-    Top_Freq_Letter = 5
+    top_freq_letter = 5
     max_key_length = 24
     
     
@@ -310,10 +310,10 @@ def test2_decryption(ciphertext, start_time): # Pass inputed ciphertext here to 
                 freq_scores.append(keyAndFreqMatchTuple)
             # Sort by match score
             freq_scores.sort(key=lambda x:x[1], reverse=True)
-            all_freq_scores.append(freq_scores[:Top_Freq_Letter])
+            all_freq_scores.append(freq_scores[:top_freq_letter])
     
         # Brute Force with possible Key Length and likely letters
-        for indexes in itertools.product(range(Top_Freq_Letter), repeat=probable_keyLen):
+        for indexes in itertools.product(range(top_freq_letter), repeat=probable_keyLen):
             possibleKey = ''
             for i in range(probable_keyLen):
                 possibleKey += all_freq_scores[i][indexes[i]][0]
