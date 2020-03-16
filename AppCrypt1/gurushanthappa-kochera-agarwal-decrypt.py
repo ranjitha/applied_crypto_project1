@@ -4,7 +4,7 @@ from collections import Counter
 from scipy import stats
 
 
-def test1_decryption(cipher_input): # michael - input ciphertext here to be decrypted
+def test1_decryption(cipher_input): # Input ciphertext here to be decrypted
 
     def get_longest_common_substring(string, m, lcs):
         length = 0
@@ -107,7 +107,7 @@ def test1_decryption(cipher_input): # michael - input ciphertext here to be decr
     return test1(cipher_input)
     #end of test 1
 
-def test2_decryption(ciphertext, start_time): # pass inputed ciphertext here to be decrypted if test1 doesnt find a valid decryption
+def test2_decryption(ciphertext, start_time): # Pass inputed ciphertext here to be decrypted if test1 doesnt find a valid decryption
 
     # Get frequency of all the letters from the given dictionary
     def get_dictionary2_frequencies(dict2):
@@ -368,6 +368,7 @@ def test2_decryption(ciphertext, start_time): # pass inputed ciphertext here to 
 
     main(ciphertext, start_time)
     #end of test 1
+
 
 def main():
     ciphertext = input("Enter CipherText Here: ")
